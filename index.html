@@ -98,11 +98,17 @@
             //limpar o visor
             document.getElementById('resultado').value = ''
           }
-            if(valor === '+' || valor === '-' || valor === '*' || valor === '/' || valor === '.'){
+	    if (['+','-','*','/','.'].includes(valor) && 
+		!['+','-','*','/','.'].includes(
+				    document.getElementById('resultado').value.charAt(
+							document.getElementById('resultado').value.length-1))) {
               document.getElementById('resultado').value += valor
             }
 
             if(valor === '='){
+		if (['+', '-', '*','/','.'].some(char => document.getElementById('resultado').value.endsWith(char))) {
+  			document.getElementById('resultado').value = document.getElementById('resultado').value.slice(0, -1);
+		}
               var valor_campo = eval(document.getElementById('resultado').value)
 
               document.getElementById('resultado').value = valor_campo
